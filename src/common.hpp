@@ -10,6 +10,15 @@
 #include <stdexcept>
 #include <math.h>
 
+#define DELETE_COPIERS(type)    \
+	type(const type&) = delete; \
+	type& operator=(const type&) = delete;
+#define DELETE_MOVERS(type) \
+	type(type&&) = delete;  \
+	type& operator=(type&&) = delete;
+
+#define DELETE_COPIERS_AND_MOVERS(type) DELETE_COPIERS(type) DELETE_MOVERS(type)
+
 #ifdef _MSC_VER
 typedef unsigned __int32 uint32_t;
 typedef __int32 int32_t;
@@ -185,15 +194,6 @@ inline int little_long(int x) {
 
 #define little_short(x) (x)
 #define little_long(x) (x)
-
-#define DELETE_COPIERS(type)    \
-	type(const type&) = delete; \
-	type& operator=(const type&) = delete;
-#define DELETE_MOVERS(type) \
-	type(type&&) = delete;  \
-	type& operator=(type&&) = delete;
-
-#define DELETE_COPIERS_AND_MOVERS(type) DELETE_COPIERS(type) DELETE_MOVERS(type)
 
 #endif // __BIG_ENDIAN__
 #endif // __APPLE__
